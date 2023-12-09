@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+    />
+    <title>Shopping Cart</title>
+    <style>
+      body {
+        background-color: #f0f0f0; /* Couleur de fond légère */
+        font-family: "Roboto", sans-serif; /* Exemple de police personnalisée */
+      }
+
+      .cart-container {
+        max-width: 600px;
+        margin: 50px auto;
+      }
+
+      .cart-item {
+        border: 5px solid #ddd;
+        margin-bottom: 10px;
+        padding: 10px;
+        background-color: white;
+        position: relative;
+        overflow: hidden;
+        transition: transform 0.3s ease;
+      }
+
+      .cart-item:hover {
+        transform: scale(1.03);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      .delete-btn,
+      .like-btn {
+        border: none;
+        background: none;
+        cursor: pointer;
+        font-size: 18px;
+      }
+
+      .delete-btn {
+        color: red;
+        position: absolute;
+        top: 5px;
+        right: 5px;
+      }
+
+      .like-btn {
+        color: gray;
+        position: absolute;
+        bottom: 5px;
+        right: 5px;
+      }
+
+      .like-btn.active {
+        color: #e74c3c;
+      }
+
+      .quantity-controls {
+        display: flex;
+        align-items: center;
+      }
+
+      .quantity-btn {
+        background-color: #3498db;
+        color: white;
+        border: none;
+        padding: 5px 10px;
+        cursor: pointer;
+      }
+
+      .quantity {
+        font-size: 20px;
+        margin: 0 10px;
+      }
+
+      .total-price {
+        font-size: 24px;
+        margin-top: 20px;
+        color: #2ecc71;
+        text-align: center;
+      }
+      /*navbar*/
+      body {
+        margin: 0;
+        font-family: "Arial", sans-serif;
+      }
+
+      .navbar {
+        background-color: hsl(340, 82%, 52%);
+        overflow: hidden;
+      }
+
+      .navbar .logo {
+        float: left;
+        padding: 15px;
+        color: white;
+        font-size: 1.5em;
+      }
+
+      .navbar ul.nav-links {
+        list-style: none;
+        float: right;
+        margin: 0;
+      }
+
+      .navbar ul.nav-links li {
+        display: inline-block;
+        margin-right: 20px;
+      }
+
+      .navbar ul.nav-links li a {
+        text-decoration: none;
+        color: white;
+        font-size: 1.2em;
+        transition: color 0.3s ease;
+      }
+
+      .navbar ul.nav-links li a:hover {
+        color: #ffcc00;
+      }
+      /* boutton*/
+      .command-button {
+        background-color: hsl(340, 82%, 52%);
+        color: white;
+        padding: 10px 20px;
+        font-size: 1.2em;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        float: right;
+      }
+
+      .command-button:hover {
+        background-color: #c2185b;
+      }
+      /*.payment-container {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        box-sizing: 50px;
+      }
+
+      .payment-form {
+        display: flex;
+        flex-direction: column;
+      }*/
+      /* Container du formulaire de paiement */
+      .payment-container {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        margin-top: 20px;
+        max-width: 500px;
+      }
+
+      /* Styles pour le formulaire */
+      .payment-form {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .payment-form label {
+        margin-bottom: 10px;
+        font-weight: bold;
+        color: #555;
+      }
+
+      .payment-form select,
+      .payment-form input {
+        padding: 12px;
+        margin-bottom: 16px;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        font-size: 16px;
+        transition: border-color 0.3s ease;
+      }
+
+      .payment-form input:focus,
+      .payment-form select:focus {
+        border-color: #e91e63;
+      }
+
+      /* Styles pour le bouton de paiement */
+      .payment-form button {
+        background-color: #e91e63;
+        color: white;
+        padding: 15px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        font-size: 18px;
+      }
+
+      .payment-form button:hover {
+        background-color: #c2185b;
+      }
+
+      label {
+        margin-bottom: 8px;
+      }
+
+      select,
+      input {
+        padding: 10px;
+        margin-bottom: 16px;
+      }
+
+      button {
+        background-color: #e91e63;
+        color: white;
+        padding: 12px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      button:hover {
+        background-color: #c2185b;
+      }
+
+      /*footer*/
+      .footer {
+        background-color: #333;
+        color: white;
+        text-align: center;
+        padding: 20px;
+        bottom: 0;
+        width: 100%;
+      }
+
+      .footer p {
+        margin: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <!--navbar-->
+    <nav class="navbar">
+      <div class="logo">Logo</div>
+      <ul class="nav-links">
+        <li><a href="#">Home</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Services</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </nav>
+    <center><h3>MON PANIER</h3></center>
+    <hr />
+    <div class="container cart-container">
+      <div class="cart-item" id="item1">
+        <span>
+          <img src="3.jpg" alt="logo" />
+        </span>
+        <button class="delete-btn" onclick="deleteItem('item1')">
+          <i class="fas fa-trash-alt"></i>
+        </button>
+        <button class="like-btn" onclick="toggleLike('item1')">
+          <i class="fas fa-heart"></i>
+        </button>
+        <div class="quantity-controls">
+          <button class="quantity-btn" onclick="adjustQuantity('item1', -1)">
+            -
+          </button>
+          <span class="quantity" id="quantity_item1">1</span>
+          <button class="quantity-btn" onclick="adjustQuantity('item1', 1)">
+            +
+          </button>
+        </div>
+        <span>$20</span>
+      </div>
+
+      <div class="cart-item" id="item2">
+        <span>
+          <img src="2.jpg" alt="logo" />
+        </span>
+        <button class="delete-btn" onclick="deleteItem('item2')">
+          <i class="fas fa-trash-alt"></i>
+        </button>
+        <button class="like-btn" onclick="toggleLike('item2')">
+          <i class="fas fa-heart"></i>
+        </button>
+        <div class="quantity-controls">
+          <button class="quantity-btn" onclick="adjustQuantity('item2', -1)">
+            -
+          </button>
+          <span class="quantity" id="quantity_item2">1</span>
+          <button class="quantity-btn" onclick="adjustQuantity('item2', 1)">
+            +
+          </button>
+        </div>
+        <span>$30</span>
+      </div>
+      <div class="cart-item" id="item3">
+        <span>
+          <img src="1.jpg" alt="logo" />
+        </span>
+        <button class="delete-btn" onclick="deleteItem('item3')">
+          <i class="fas fa-trash-alt"></i>
+        </button>
+        <button class="like-btn" onclick="toggleLike('item3')">
+          <i class="fas fa-heart"></i>
+        </button>
+        <div class="quantity-controls">
+          <button class="quantity-btn" onclick="adjustQuantity('item3', -1)">
+            -
+          </button>
+          <span class="quantity" id="quantity_item2">1</span>
+          <button class="quantity-btn" onclick="adjustQuantity('item3', 1)">
+            +
+          </button>
+        </div>
+        <span>$30</span>
+      </div>
+
+      <div class="total-price" id="totalPrice">Total: $80</div>
+    </div>
+    <center>
+      <div class="payment-container">
+        <h2>Choisissez un Mode de Paiement</h2>
+        <form class="payment-form">
+          <label for="payment-method">Mode de Paiement :</label>
+          <select id="payment-method" name="payment-method">
+            <option value="card">Carte de Crédit</option>
+            <option value="paypal">PayPal</option>
+            <option value="bank-transfer">Virement Bancaire</option>
+          </select>
+
+          <label for="promo-code">Code Promo :</label>
+          <input
+            type="text"
+            id="promo-code"
+            name="promo-code"
+            placeholder="Entrez votre code promo"
+          />
+
+          <button type="submit">Payer</button>
+        </form>
+      </div>
+    </center>
+    <br />
+    <br />
+    <!--
+    <button class="command-button">Commander</button>-->
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/dixonandmoe/rellax@1.12.1/rellax.min.js"></script>
+    <script>
+      const rellax = new Rellax(".cart-item", {
+        speed: -2,
+        center: false,
+        wrapper: null,
+        round: true,
+        vertical: true,
+        horizontal: false,
+      });
+    </script>
+
+    <script>
+      // Initial total price
+      let totalPrice = 80;
+
+      // Function to adjust quantity
+      function adjustQuantity(itemId, amount) {
+        const quantityElement = $(`#quantity_${itemId}`);
+        let quantity = parseInt(quantityElement.text());
+        quantity += amount;
+
+        if (quantity < 1) {
+          return;
+        }
+
+        quantityElement.text(quantity);
+
+        // Adjust total price
+        const itemPrice = itemId === "item1" ? 20 : 30;
+        totalPrice += amount * itemPrice;
+        updateTotalPrice();
+      }
+
+      // Function to delete item
+      function deleteItem(itemId) {
+        const item = $(`#${itemId}`);
+        const itemPrice = itemId === "item1" ? 20 : 30;
+
+        // Adjust total price
+        totalPrice -= parseInt($(`#quantity_${itemId}`).text()) * itemPrice;
+        item.remove();
+        updateTotalPrice();
+      }
+
+      // Function to toggle like
+      function toggleLike(itemId) {
+        const likeBtn = $(`#${itemId} .like-btn`);
+        likeBtn.toggleClass("active");
+
+        // You can add additional logic here for handling liked items.
+      }
+
+      // Function to update total price
+      function updateTotalPrice() {
+        $("#totalPrice").text(`Total: $${totalPrice}`);
+      }
+    </script>
+    <footer class="footer">
+      <p>&copy; 2023 Votre beauté ici . Tous droits réservés.</p>
+    </footer>
+  </body>
+</html>
